@@ -20,6 +20,16 @@ const taskListSchema = new Schema(
   { timestamps: true }
 );
 
+taskListSchema.methods.addTask = async function(taskId) {
+  this.tasks.push(taskId);
+  return await this.save();
+};
+
+taskListSchema.methods.removeTask = async function(taskId) {
+  this.tasks.pull(taskId);
+  return await this.save();
+};
+
 const TaskList = mongoose.model('TaskList', taskListSchema);
 
 export default TaskList;
